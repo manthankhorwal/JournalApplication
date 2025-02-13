@@ -2,7 +2,7 @@ package com.MarvelMan.JournalApplication.entity;
 
 
 import com.mongodb.lang.NonNull;
-import lombok.Builder;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,8 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Document(collection = "users")
-@Builder
 public class User {
     @Id
     private ObjectId id;
@@ -23,18 +27,15 @@ public class User {
     @NonNull
     private String password;
     private String email;
-    private String sentimentAnalysis;
-    @DBRef
-    private List<JournalEntry> journalEntries=new ArrayList<>();
-    private List<String> roles;
-    public List<String> getRoles() {
-        return roles;
+    private boolean sentimentAnalysis;
+
+    public List<JournalEntry> getJournalEntries() {
+        return journalEntries;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setJournalEntries(List<JournalEntry> journalEntries) {
+        this.journalEntries = journalEntries;
     }
-
 
     public ObjectId getId() {
         return id;
@@ -44,7 +45,8 @@ public class User {
         this.id = id;
     }
 
-    public @NonNull String getUserName() {
+    @NonNull
+    public String getUserName() {
         return userName;
     }
 
@@ -52,31 +54,42 @@ public class User {
         this.userName = userName;
     }
 
-    public @NonNull String getPassword() {
+    @NonNull
+    public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", journalEntries=" + journalEntries +
-                ", roles=" + roles +
-                '}';
     }
 
     public void setPassword(@NonNull String password) {
         this.password = password;
     }
 
-    public List<JournalEntry> getJournalEntries() {
-        return journalEntries;
+    public String getEmail() {
+        return email;
     }
 
-    public void setJournalEntries(List<JournalEntry> journalEntries) {
-        this.journalEntries = journalEntries;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public boolean isSentimentAnalysis() {
+        return sentimentAnalysis;
+    }
+
+    public void setSentimentAnalysis(boolean sentimentAnalysis) {
+        this.sentimentAnalysis = sentimentAnalysis;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    @DBRef
+    private List<JournalEntry> journalEntries=new ArrayList<>();
+    private List<String> roles;
+
 
 }

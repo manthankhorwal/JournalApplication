@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class JournalEntryService {
            user.getJournalEntries().add(saved);
            userService.saveUser(user);
        } catch (Exception e) {
-           System.out.println("Error occurred while saving");
+           System.out.println(e.getMessage()+" Error occurred while saving");
            throw new RuntimeException(e);
        }
 
